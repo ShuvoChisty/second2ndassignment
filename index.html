@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <head>
+       <div class="w3-panel w3-gray">
+    <h1 style="color:blue; text-align:center;font-size:250%;"><b>CHAT MESSSENGER</b></h1></r><br>
+   <h3 style="color:black; text-align:center;font-size:150%;"><i>Message box is given below for writting & sending message<br>between Members</i></h3></r><br>
+  </div><br>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: DarkCyan; padding: 20px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 30px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: coral; border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px;background:LightBlue; }
+      #messages li:nth-child(odd) { background:teal; }
+      #messages { margin-bottom: 40px; background:LightBlue;}
+      
+    </style>
+  </head>
+  <body>
+  
+  
+    
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+  
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form').submit(function(){
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+        
+        socket.on('chat message', function(msg){
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      });
+      
+    </script>
+  </body>
+</html>
